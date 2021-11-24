@@ -37,7 +37,7 @@ func setupRouter() *gin.Engine {
 		cmd := exec.Command("sh", "-c", "./deploy.sh")
 
 		if sysType == "linux" {
-			cmd.Dir = "var/www/html/projects/Dolphin.DrivingInstructor.Frontend"
+			cmd.Dir = "/var/www/html/projects/Dolphin.DrivingInstructor.Frontend"
 		} else {
 			cmd.Dir = "F:/work/Dolphin.DrivingInstructor.Frontend"
 		}
