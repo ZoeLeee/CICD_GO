@@ -10,9 +10,12 @@ import (
 	"log"
 
 	"fmt"
+	"runtime"
 )
 
 var db = make(map[string]string)
+
+var sysType string = runtime.GOOS
 
 func setupRouter() *gin.Engine {
 	// Disable Console Color
@@ -32,7 +35,13 @@ func setupRouter() *gin.Engine {
 
 	r.POST("update-driving", func(c *gin.Context) {
 		cmd := exec.Command("sh", "-c", "./deploy.sh")
-		cmd.Dir = "F:/work/Dolphin.DrivingInstructor.Frontend"
+
+		if sysType == "linux" {
+			cmd.Dir = "var/www/html/projects/Dolphin.DrivingInstructor.Frontend"
+		} else {
+			cmd.Dir = "F:/work/Dolphin.DrivingInstructor.Frontend"
+		}
+
 		output, err := cmd.CombinedOutput()
 		if err != nil {
 			log.Fatalln(err)
